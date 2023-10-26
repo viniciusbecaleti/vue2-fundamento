@@ -48,17 +48,15 @@
       },
       methods: {
         async getStocks() {
-          try {
-            Promise.all([
-              fetch("https://api.origamid.dev/stock/aapl/quote"),
-              fetch("https://api.origamid.dev/stock/googl/quote")
-            ]).then(async (responses) => {
-              this.appleStock = await responses[0].json()
-              this.googleStock = await responses[1].json()
-            })
-          } catch (error) {
-            console.error(error)
-          }
+          Promise.all([
+            fetch("https://api.origamid.dev/stock/aapl/quote"),
+            fetch("https://api.origamid.dev/stock/googl/quote")
+          ]).then(async (responses) => {
+            this.appleStock = await responses[0].json()
+            this.googleStock = await responses[1].json()
+          }).catch(() => {
+            console.log("An error occurred while fetching for some stock")
+          })
         }
       }
     })
