@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+  <style>
+    .green {
+      color: green;
+    }
+
+    .red {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div v-if="appleStock && googleStock">
+      <h1>
+        <span :class="appleStock.marketCap > googleStock.marketCap ? 'green' : 'red'">
+          {{ appleStock.companyName }}
+        </span> - {{ appleStock.marketCap }}
+      </h1>
+      <h1>
+        <span :class="googleStock.marketCap > appleStock.marketCap ? 'green' : 'red'">
+          {{ googleStock.companyName }}
+        </span> - {{ googleStock.marketCap }}
+      </h1>
+    </div>
+  </div>
+
+  <script>
+    // Utilizando as API's
+    // https://api.origamid.dev/stock/aapl/quote
+    // https://api.origamid.dev/stock/googl/quote
+
+    // - Compare o marketCap (valor de mercado) entre ambas.
+    // - Mostre o nome das empresas e o valor na interace (companyName e marketCap).
+    // - Mude a cor para verde o nome da empresa com maior marketCap e vermelho a com menor.
+
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        appleStock: null,
+        googleStock: null
+      },
+      methods: {
+        async getStocks() {
+          try {
+            Promise.all([
+              fetch("https://api.origamid.dev/stock/aapl/quote"),
+              fetch("https://api.origamid.dev/stock/googl/quote")
+            ]).then(async (responses) => {
+              this.appleStock = await responses[0].json()
+              this.googleStock = await responses[1].json()
+            })
+          } catch (error) {
+            console.error(error)
+          }
+        }
+      }
+    })
+
+    vm.getStocks()
+  </script>
+</body>
+</html>
