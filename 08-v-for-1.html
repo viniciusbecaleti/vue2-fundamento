@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <template>
+      <h1>Cursos</h1>
+
+      <ul>
+        <li v-for="(curso) of cursos">{{ curso }}</li>
+      </ul>
+    </template>
+    
+    <template>
+      <h1>Estados</h1>
+
+      <ul>
+        <li v-for="({ nome, populacao }, chave) in estados" :key="chave">
+          {{ chave }}
+
+          <ul>
+            <li>{{ nome }}</li>
+            <li>{{ populacao }}</li>
+          </ul>
+        </li>
+      </ul>
+    </template>
+
+    <template>
+      <h1>Contando até 5</h1>
+
+      <ul>
+        <li v-for="n in 5">{{ n }}</li>
+      </ul>
+    </template>
+
+    <template>
+      <h1>Lista</h1>
+
+      <ul>
+        <li v-for="item in lista">{{ item }}</li>
+      </ul>
+
+      <button type="button" @click="removerItem">Remover Item</button>
+      <button type="button" @click="modificarItem">Modificar Item</button>
+    </template>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        cursos: ["HTML", "CSS", "JavaScript", "PHP", "WordPress"],
+        estados: {
+          sp: {
+            nome: "São Paulo",
+            populacao: "45 milhões"
+          },
+          mg: {
+            nome: "Minas Gerais",
+            populacao: "21 milhões"
+          },
+          rj: {
+            nome: "Rio de Janeiro",
+            populacao: "17 milhões"
+          },
+        },
+        lista: ["Item 1", "Item 2", "Item 3"]
+      },
+      methods: {
+        removerItem() {
+          this.lista.pop()
+        },
+
+        modificarItem() {
+          this.$set(this.lista, 0, "Banana")
+        }
+      }
+    })
+  </script>
+</body>
+</html>

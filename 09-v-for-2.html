@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <template v-if="address">
+      <h1>Endereço</h1>
+      
+      <ul>
+        <li v-for="(data, key) in address" :key="key">{{ key }}: {{ data }}</li>
+      </ul>
+    </template>
+    
+    <template v-if="cursos">
+      <h1>Cursos</h1>
+
+      <div v-for="curso in cursos">
+        <h2>
+          <a :href="curso.link" target="_blank">{{ curso.curso }}</a>
+        </h2>
+
+        <h3>Aulas</h3>
+
+        <ul>
+          <li v-for="aula in curso.aulas" :key="aula.nome">
+            {{ aula.nome }}, {{ aula.tempo }}
+          </li>
+        </ul>
+
+      </div>
+    </template>
+  </div>
+
+  <script>
+    // Utilizando a api:
+    // https://viacep.com.br/ws/04538133/json/
+    // Mostre o cep, logradouro, complemento, bairro, localidade e uf do que for retornado.
+    // Use o arquivo json da aula, para listar os cursos e as matérias.
+
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        address: null,
+        cursos: null
+      },
+      methods: {
+        async getAddress() {
+          const response = await fetch("https://viacep.com.br/ws/04538133/json/")
+          const data = await response.json()
+          console.log(data);
+          this.address = data
+        },
+
+        async getCursos() {
+          const response = await fetch("/cursos.json")
+          const data = await response.json()
+          this.cursos = data
+        }
+      }
+    })
+
+    vm.getAddress()
+    vm.getCursos()
+  </script>
+</body>
+</html>

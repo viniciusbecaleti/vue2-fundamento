@@ -1,0 +1,65 @@
+[
+  {
+    "curso": "Web Design Completo",
+    "link": "https://www.origamid.com/curso/web-design-completo/",
+    "aulas": [
+      {
+        "nome": "HTML e CSS",
+        "tempo": "22min",
+        "grau": "Iniciante"
+      },
+      {
+        "nome": "JavaScript",
+        "tempo": "32min",
+        "grau": "Iniciante"
+      },
+      {
+        "nome": "Formulários",
+        "tempo": "12min",
+        "grau": "Iniciante"
+      }
+    ]
+  },
+  {
+    "curso": "JavaScript Completo",
+    "link": "https://www.origamid.com/curso/javascript-completo-es6/",
+    "aulas": [
+      {
+        "nome": "Variáveis",
+        "tempo": "24min",
+        "grau": "Iniciante"
+      },
+      {
+        "nome": "Arrays",
+        "tempo": "13min",
+        "grau": "Iniciante"
+      },
+      {
+        "nome": "Objetos",
+        "tempo": "32min",
+        "grau": "Iniciante"
+      }
+    ]
+  },
+  {
+    "curso": "WordPress como CMS",
+    "link": "https://www.origamid.com/curso/wordpress-como-cms/",
+    "aulas": [
+      {
+        "nome": "ACF",
+        "tempo": "24min",
+        "grau": "Iniciante"
+      },
+      {
+        "nome": "Temas",
+        "tempo": "13min",
+        "grau": "Iniciante"
+      },
+      {
+        "nome": "Plugins",
+        "tempo": "32min",
+        "grau": "Iniciante"
+      }
+    ]
+  }
+]
