@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div v-once v-html="list"></div>
+  </div>
+
+  <script>
+    // Renderize o conteúdo, apenas uma vez (não torne o mesmo reativo):
+    // lista: "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>"
+
+
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        list: "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>"
+      },
+      methods: {}
+    })
+  </script>
+</body>
+</html>
