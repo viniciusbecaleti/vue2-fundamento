@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+  <style>
+    select {
+      width: 100%;
+      border: 1px solid #ccc;
+      padding: 0.5rem 1rem;
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>Bem-vindo novamento, {{ nomeCompleto }}</h1>
+
+    <select v-model="pais">
+      <option value="" selected disabled>Selecione um pais</option>
+      <option v-for="pais in paises" :value="pais.name" :key="pais.translations.pt">
+        {{ pais.translations.pt }}
+      </option>
+    </select>
+
+    {{ capital }}
+  </div>
+
+  <script>
+    // Você possui o nome e sobrenome do usuário em data,
+    // crie uma propriedade computed que retorne o nome completo
+    
+    // Utilize a rest API para puxar as capitais dos paises
+    // Use um campo de select, onde o usuário pode selecionar o país.
+    // https://restcountries.com/v2/all
+
+    // Com uma função watch, mude a capital de acordo com o país selecionado:
+
+    // Ex de campo select:
+
+    // <select name="paises" id="paises" v-model="selecionado">
+    //   <option v-for="pais in paises" :value="pais.name">
+    //     {{pais.name}}
+    //   </option>
+    // </select>
+
+
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        nome: "Vinicius",
+        sobrenome: "Becaleti",
+        paises: [],
+        pais: "",
+        capital: ""
+      },
+      computed: {
+        nomeCompleto() {
+          return `${this.nome} ${this.sobrenome}`
+        }
+      },
+      methods: {
+        async getPaises() {
+          const response = await fetch("https://restcountries.com/v2/all")
+          const data = await response.json()
+          this.paises = data
+        }
+      },
+      watch: {
+        pais(value) {
+          const index = this.paises.findIndex(pais => pais.name === value)
+          this.capital = this.paises[index].capital
+        }
+      }
+    })
+
+    vm.getPaises()
+  </script>
+</body>
+</html>
