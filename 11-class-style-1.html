@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+  <style>
+    .green {
+      color: green;
+    }
+
+    .red {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1 :class="{ green: admin }">Testando</h1>
+    <a :style="{ background: bgColor, color: '#fff', fontSize: tamanho + 'px' }" href="">Estilize ele</a>
+    <button type="button" @click="tamanho++">Aumentar</button>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        admin: true,
+        bgColor: "blue",
+        tamanho: 20
+      }
+    })
+  </script>
+</body>
+</html>
