@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1 style="position: fixed;" >{{ totalScroll }}</h1>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        totalScroll: 0
+      },
+      methods: {
+        handleScroll() {
+          this.totalScroll = window.scrollY;
+          console.log(this.totalScroll);
+        }
+      },
+      created() {
+        window.addEventListener("scroll", this.handleScroll)
+      }
+    })
+  </script>
+
+  <style>
+    body {
+      height: 2000px;
+    }
+  </style>
+</body>
+</html>
