@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <botao-contador></botao-contador>
+    <componente-local></componente-local>
+  </div>
+
+  <script>
+    Vue.component("BotaoContador", {
+      data() {
+        return {
+          count: 0
+        }
+      },
+      methods: {
+        handleClick() {
+          this.count++
+        }
+      },
+      template: `<button @click="handleClick">Contar: {{ count }}</button>`
+    })
+
+    const ComponenteLocal = {
+      name: "ComponenteLocal",
+      template: "<div>Componente Local</div>"
+    }
+
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        mensagem: "Hello, world!"
+      },
+      components: {
+        ComponenteLocal
+      }
+    })
+  </script>
+</body>
+</html>
