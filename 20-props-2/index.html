@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <botao-contador
+      :total="total"
+      :count="count"
+    ></botao-contador>
+
+    <button type="button" @click="count">Contador: {{ total }}</button>
+  </div>
+
+  <script>
+    const BotaoContador = {
+      name: "BotaoContador",
+      props: ["total", "count"],
+      props: {
+        total: Number,
+        count: Function
+      },
+      template: `<button type="button" @click="count">Contador: {{ total }}</button>`
+    }
+
+    const app = new Vue({
+      el: "#app",
+      data: {
+        total: 0
+      },
+      methods: {
+        count() {
+          this.total++
+        }
+      },
+      components: {
+        BotaoContador
+      }
+    })
+  </script>
+</body>
+</html>

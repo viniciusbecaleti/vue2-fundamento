@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../vue.js"></script>
+</head>
+<body>
+  <!-- 
+    Crie um componente com um campo de input e um botão para enviar o valor.
+    Nesse campo de input será possível escrever o simbolo de empresas americanas
+    
+    simbolos ex:
+    aapl -> Apple
+    goog -> Google
+    msft -> Microsoft
+    amzn -> Amazon
+    fb -> Facebook
+    
+    Ao clicar no botão, faça um fetch com a API:
+    https://api.origamid.dev/stock/${SIMBOLO}/quote
+    
+    O resultado do fetch deverá ser mostrado em um componente filho do formulário.
+    Envia as informações utilizando prop
+    
+    Mostre todas as informações do fetch utilizando um loop.
+  -->
+
+  <div id="app">
+    <stock></stock>
+  </div>
+
+  <script>
+    Vue.component("Stock", {
+      data() {
+        return {
+          symbol: "",
+          quote: null,
+          loading: false
+        }
+      },
+      methods: {
+        async getStock() {
+          try {
+            this.loading = true
+
+            await new Promise(resolve => setTimeout(resolve, 2000))
+
+            const response = await fetch(`https://api.origamid.dev/stock/${this.symbol}/quote`)
+            const data = await response.json()
+            this.quote = data
+          } catch (error) {
+            this.quote = null
+          } finally {
+            this.loading = false
+          }
+        }
+      },
+      template: `
+        <div>
+          <form @submit.prevent="getStock">
+            <label for="symbol">Símbolo</label>
+            <input type="text" id="symbol" v-model="symbol">
+            <button type="submit">Buscar</button>
+          </form>
+
+          <div v-if="loading">
+            Carregando...
+          </div>
+
+          <quote v-if="quote && !loading" :quote="quote"></quote>
+
+          <div v-show="!quote && !loading">
+            Nenhuma empresa encontrada
+          </div>
+        </div>
+      `
+    })
+
+    Vue.component("Quote", {
+      props: ["quote"],
+      template: `
+        <div>
+          <pre v-show="quote">{{ JSON.stringify(quote, null, 2) }}</pre>
+        </div>
+      `
+    })
+
+    const vm = new Vue({
+      el: "#app",
+    })
+  </script>
+</body>
+</html>
