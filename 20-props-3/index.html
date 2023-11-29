@@ -37,7 +37,8 @@
         return {
           symbol: "",
           quote: null,
-          loading: false
+          loading: false,
+          error: ""
         }
       },
       methods: {
@@ -52,6 +53,7 @@
             this.quote = data
           } catch (error) {
             this.quote = null
+            this.error = "Erro durando a busca"
           } finally {
             this.loading = false
           }
@@ -71,8 +73,12 @@
 
           <quote v-if="quote && !loading" :quote="quote"></quote>
 
-          <div v-show="!quote && !loading">
+          <div v-show="!quote && !loading && !error">
             Nenhuma empresa encontrada
+          </div>
+
+          <div v-show="!quote && !loading && error">
+            {{ this.error }}
           </div>
         </div>
       `
